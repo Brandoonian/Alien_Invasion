@@ -34,7 +34,6 @@ class Alien_Invasion:
         """Start the main loop for the game."""
         while True:
             self._check_events()
-
             if self.stats.game_active:
                 self.ship.update()
                 self._update_bullets()
@@ -86,13 +85,13 @@ class Alien_Invasion:
             if bullet.rect.bottom <= 0:
                 self.bullets.remove(bullet)
 
-        self._check_bullet_alien_collision()
+        self._check_bullet_alien_collisions()
 
 
-    def _check_bullet_alien_collision(self):
+    def _check_bullet_alien_collisions(self):
         """Respond to bullet-alien collisions."""
         # Remove any bullets and aliens that have collided.
-        collisions = pygame.sprite.groupcollide(
+        collisions = pygame.sprite.groupcollide(                  ########
             self.bullets, self.aliens, True, True)
 
         if not self.aliens:
@@ -116,7 +115,7 @@ class Alien_Invasion:
         self.aliens.update()
 
         # Look for alien-ship collisions.
-        if pygame.sprite.spritecollideany(self.ship, self.aliens):
+        if pygame.sprite.spritecollideany(self.ship, self.aliens):     ########
             self._ship_hit()
 
         # Look for aliens hitting the bottom of the screen.
@@ -154,7 +153,7 @@ class Alien_Invasion:
         """Respond appropriately if any aliens have reached an edge"""
         alien = Alien(self)
         for alien in self.aliens.sprites():
-            if alien.check_edges():
+            if alien.check_edges():                                 ##########
                 self._change_fleet_direction()
                 break
 
@@ -188,7 +187,7 @@ class Alien_Invasion:
         self.screen.fill(self.settings.bg_color)
         self.ship.blitme()
         for bullet in self.bullets.sprites():
-            bullet.draw_bullet()
+            bullet.draw_bullet()                                        ########
         self.aliens.draw(self.screen)
 
         # Make the most recently drawn screen visible.
